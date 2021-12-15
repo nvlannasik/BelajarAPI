@@ -1,4 +1,5 @@
 const express = require("express");
+const res = require("express/lib/response");
 const app = express();
 const mysql = require("mysql");
 const port = 3000;
@@ -27,6 +28,15 @@ app.post("/posts", (req, res) => {
   db.query(sql, (err, results) => {
     if (err) throw err;
     res.json({ status: 200, message: "data berhasil disimpan", data: null });
+  });
+});
+
+app.get("/posts", (req, res) => {
+  let sql =
+    "SELECT post_id, username, post, DATE_FORMAT(post_date, '%W %D %M %Y %H:%i') as post_date FROM posts";
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json({ status: 200, message: "data berhasil di- GET", data: results });
   });
 });
 
