@@ -73,6 +73,26 @@ app.get("/posts/username/:username", (req, res) => {
   });
 });
 
+//update
+
+app.put("/posts/id/:id", (req, res) => {
+  let sql =
+    "UPDATE posts SET post='" +
+    req.body.post +
+    "' " +
+    "WHERE post_id='" +
+    req.params.id +
+    "'";
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "data berhasil di-update",
+      data: null,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`cli-nodejs-api listening at http://localhost:${port}`);
 });
