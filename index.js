@@ -11,34 +11,22 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "social_media",
+  database: "media_social",
 });
 
-app.get("/connection", (req, res) => {
-  db.connect(function (err) {
-    if (err) {
-      res.json({ status: 200, message: "Koneksi gagal dilakukan.", data: err });
-    } else {
-      res.json({ status: 200, message: "Koneksi berhasil dilakukan." });
-    }
-  });
-});
-
+// menjalankan SQL - table posts
 // create
-app.post("/users", (req, res) => {
+app.post("/posts", (req, res) => {
   let sql =
-    "INSERT INTO users SET username='" +
+    "INSERT INTO posts SET post_date=NOW()" +
+    ", username='" +
     req.body.username +
-    "', password=password('" +
-    req.body.password +
-    "'), fullname='" +
-    req.body.fullname +
-    "', picture='" +
-    req.body.picture +
+    "', post='" +
+    req.body.post +
     "'";
   db.query(sql, (err, results) => {
     if (err) throw err;
-    res.json({ status: 200, error: null, response: results, data: req.body });
+    res.json({ status: 200, message: "data berhasil disimpan", data: null });
   });
 });
 
