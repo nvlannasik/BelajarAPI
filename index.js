@@ -15,7 +15,6 @@ const db = mysql.createConnection({
   database: "media_social",
 });
 
-// menjalankan SQL - table posts
 // create
 app.post("/posts", (req, res) => {
   let sql =
@@ -31,12 +30,29 @@ app.post("/posts", (req, res) => {
   });
 });
 
+//get
 app.get("/posts", (req, res) => {
   let sql =
     "SELECT post_id, username, post, DATE_FORMAT(post_date, '%W %D %M %Y %H:%i') as post_date FROM posts";
   db.query(sql, (err, results) => {
     if (err) throw err;
     res.json({ status: 200, message: "data berhasil di- GET", data: results });
+  });
+});
+
+// get id
+app.get("/posts/id/:id", (req, res) => {
+  let sql =
+    "SELECT post_id, username, post, DATE_FORMAT(post_date, '%W %D %M %Y %H:%i') as post_date FROM posts WHERE post_id='" +
+    req.params.id +
+    "' ";
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "data berhasil di- GET by id",
+      data: results,
+    });
   });
 });
 
