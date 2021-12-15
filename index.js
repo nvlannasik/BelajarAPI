@@ -93,6 +93,20 @@ app.put("/posts/id/:id", (req, res) => {
   });
 });
 
+//delete
+
+app.delete("/posts/id/:id", (req, res) => {
+  let sql = "DELETE FROM posts WHERE post_id='" + req.params.id + "'";
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "data berhasil dihapus",
+      data: null,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`cli-nodejs-api listening at http://localhost:${port}`);
 });
