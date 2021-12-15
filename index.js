@@ -56,6 +56,23 @@ app.get("/posts/id/:id", (req, res) => {
   });
 });
 
+// get username
+
+app.get("/posts/username/:username", (req, res) => {
+  let sql =
+    "SELECT post_id, username, post, DATE_FORMAT(post_date, '%W %D %M %Y %H:%i') as post_date FROM posts WHERE username='" +
+    req.params.username +
+    "' ";
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json({
+      status: 200,
+      message: "data berhasil di- GET by username",
+      data: results,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`cli-nodejs-api listening at http://localhost:${port}`);
 });
