@@ -15,6 +15,10 @@ const db = mysql.createConnection({
   database: "media_social",
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello World!11");
+});
+
 // create
 app.post("/posts", (req, res) => {
   let sql =
